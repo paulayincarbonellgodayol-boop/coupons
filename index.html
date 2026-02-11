@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Using serif fallback for 'Cochin' style feel */
         body { font-family: 'Cochin', 'Georgia', serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         .font-display { font-family: 'Cochin', 'Georgia', serif; }
         
@@ -18,11 +17,39 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Safari-Hardened 3D Perspective */
+        .text-overlay-box {
+            background-color: rgba(255, 241, 242, 0.88); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(251, 207, 232, 0.5);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            z-index: 20;
+            position: relative;
+        }
+
+        /* Animated Floating Hearts */
+        .heart-particle {
+            position: absolute;
+            color: rgba(236, 72, 153, 0.4);
+            user-select: none;
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
         .coupon-card {
             perspective: 1000px;
             -webkit-perspective: 1000px;
-            height: 300px;
+            height: 400px;
             margin-bottom: 10px;
         }
 
@@ -36,8 +63,6 @@
             cursor: pointer;
         }
 
-        /* Flip trigger for both Hover (Desktop) and Tap (Mobile) */
-        .coupon-card:hover .coupon-inner,
         .coupon-inner.is-flipped {
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg);
@@ -53,107 +78,161 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .coupon-front {
-            background-color: white;
-            z-index: 2;
-        }
-
-        .coupon-back {
-            background-color: #fff1f2;
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            z-index: 1;
+        .coupon-front { background-color: white; z-index: 2; }
+        .coupon-back { 
+            background-color: #fff1f2; 
+            transform: rotateY(180deg); 
+            -webkit-transform: rotateY(180deg); 
+            z-index: 1; 
             border: 2px dashed #fbcfe8;
         }
 
-        .romantic-bg { background-color: rgba(255, 241, 242, 0.7); }
+        .redeem-btn {
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 9999px;
+            background-color: #ec4899;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .redeem-btn.is-redeemed { background-color: #9d174d; }
+
+        .heart-icon {
+            display: none;
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .is-redeemed .heart-icon { display: block; }
+        .romantic-bg { background-color: rgba(255, 241, 242, 0.5); }
     </style>
 </head>
 <body class="bg-slate-50">
 
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-pink-50">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-pink-50" id="hero-section">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80" 
-                 class="w-full h-full object-cover opacity-20" alt="Background">
+                 class="w-full h-full object-cover opacity-30" alt="Background">
             <div class="absolute inset-0 romantic-bg"></div>
         </div>
 
         <div class="relative z-10 text-center px-6 max-w-2xl">
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-pink-100 mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-pink-500 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
+            <div class="text-overlay-box">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/50 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-pink-500 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
 
-            <h1 class="font-display text-5xl md:text-7xl font-bold text-slate-800 mb-4 leading-tight">
-                Our <span class="text-gradient-gold block">Date Night</span> Coupon Book
-            </h1>
+                <h1 class="font-display text-4xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
+                    Our <span class="text-gradient-gold block">Date Night</span> Coupon Book
+                </h1>
 
-            <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-                Sant Jordi remains the superior holiday, but this is the first time I get to call you my (not Saint) Valentine, so allow me to wake up craving cheese... and end up being painfully cheesy instead. <br><br>
-                This is a compilation of dates we can have on a call. The in-person dates will come, but I'm sure we can come up with those together. <br><br>
-                <span class="text-pink-600 font-semibold">Happy Valentine's Day, ducky!</span>
-            </p>
+                <p class="text-base md:text-lg text-slate-700 leading-relaxed text-center">
+                    Sant Jordi remains the superior holiday, but this is the first time I get to call you my (not Saint) Valentine, so allow me to wake up craving cheese... and end up being painfully cheesy instead. 
+                    <br><br>
+                    This is a compilation of dates we can have on a call. The in-person dates will come, but I am sure we can come up with those together. 
+                    <br><br>
+                    <span class="text-pink-600 font-semibold">Happy Valentine's Day, ducky!</span>
+                </p>
 
-            <div class="mt-10">
-                <a href="#coupons" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-pink-500 text-white font-semibold shadow-lg">
-                    Open Your Coupons
-                </a>
+                <div class="mt-8">
+                    <a href="#coupons" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-pink-500 text-white font-semibold shadow-lg hover:bg-pink-600 transition-colors">
+                        Open Your Coupons
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="coupons" class="py-20 px-4 max-w-6xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-slate-800 mb-4">Your Date Night Coupons</h2>
-            <p class="text-slate-500 italic">Tap a coupon to reveal your treat! ✨</p>
+            <h2 class="text-4xl font-bold text-slate-800 mb-4 font-display">Your Date Night Coupons</h2>
+            <p class="text-slate-500 font-display text-xl">Tap a coupon to reveal your treat! ✨</p>
         </div>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="coupon-grid"></div>
-
         <footer class="mt-24 text-center">
-            <p class="font-display text-3xl text-slate-400 italic">I love you Matt.</p>
+            <p class="font-display text-2xl text-pink-400 italic">I love you Matt.</p>
         </footer>
     </section>
 
     <script>
+        // --- Heart Animation Logic ---
+        function createHeart() {
+            const hero = document.getElementById('hero-section');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+            hero.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 10000);
+        }
+        setInterval(createHeart, 400);
+
+        // --- Coupon Data ---
         const coupons = [
-            { title: "Movie Night In", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it's in-sync! 🍿" },
-            { title: "Cook Together", emoji: "👨‍🍳", description: "Choose the same recipe, buy the ingredients, and cook together over video call. Bonus points for eating together! 🍝" },
-            { title: "Photo Album", emoji: "📸", description: "Create an album compiling our best pictures as a keepsake of when we're together! ✨" },
-            { title: "Creative Writing", emoji: "📚", description: "Write a story based on a prompt. We each write for 2 minutes and then swap stories! 💭" },
-            { title: "Game Night", emoji: "🎮", description: "Pick a multiplayer game. I think an escape room could be fun! 🔎" },
-            { title: "Music Night", emoji: "🎵", description: "Go through our playlist and add new ones. Bonus points for random picks like Dr Heckyll and Mr Jive! 💗" },
-            { title: "Virtual Museum", emoji: "🏛️", description: "Visit a virtual museum together. We're cultural ducks. 🖼️" },
-            { title: "Niche Pictionary", emoji: "🎨", description: "Revisit our favourite moments while testing our lack of artistic abilities. 🌀" },
-            { title: "Interior Design", emoji: "🪑", description: "Design our dream kitchen together and decide whether columns are a good decision for a bedroom. 💡" },
-            { title: "PowerPoint Night", emoji: "🗣️", description: "Choose a random topic and make a 10-min presentation. Pending: Mazes. 🧠" },
-            { title: "Deep Dive", emoji: "👀", description: "Getting to know each other even further through a question-based card game. 🃏" },
-            { title: "Early Birds", emoji: "🪱", description: "Morning coffee date for a change and admire each other's sleepy face. ☕️" },
-            { title: "The Jar", emoji: "🍶", description: "Ask our future selves questions for us to find and reply to on another call. ❓" },
-            { title: "Speaking from Ignorance", emoji: "🎙️", description: "Try to explain a word the other person chose without looking it up. 📖" },
-            { title: "Tier Ranking", emoji: "🎖️", description: "Tier Ranking random things and seeing how much we agree to disagree. 💪" },
-            { title: "A New Us", emoji: "😘", description: "Make up night! Facemasks and blackhead removers so we feel at our freshest. 💄" }
+            { title: "Movie Night In", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it is in-sync! 🍿" },
+            { title: "Cook Together", emoji: "👨‍🍳", description: "Choose the same recipe, buy the ingredients, and cook together over video call. Bonus points for actually eating together at the same time, as experience has proven it hard! 🍝" },
+            { title: "Photo Album", emoji: "📸", description: "Create an album compiling our best pictures as a keepsake of when we are together! ✨" },
+            { title: "Creative Writing", emoji: "📚", description: "Write a story based on a prompt found online. We each write for 2 minutes and then swap stories, making it a combination of both our ideas! 💭" },
+            { title: "Game Night", emoji: "🎮", description: "Pick a multiplayer game and play together. I think an escape room could be fun, but am very open to finding alternatives! 🔎" },
+            { title: "Music Night", emoji: "🎵", description: "Go through our playlist together and add new ones to listen to when we are together. Bonus points for random picks like Dr Heckyll and Mr Jive! 💗" },
+            { title: "Virtual Museum", emoji: "🏛️", description: "Visit a virtual museum together. I am positive the Louvre and the British Museum, among others, offer this option! We are cultural ducks. 🖼️" },
+            { title: "Niche Pictionary", emoji: "🎨", description: "Revisit our favourite moments together while testing our lack of artistic abilities. Pending: find a medium that does not randomly rearrange our masterpieces. 🌀" },
+            { title: "Interior Design", emoji: "🪑", description: "Design our dream kitchen together. Very open to moving to other rooms and deciding whether columns are a good decision for a bedroom. 💡" },
+            { title: "PowerPoint Night", emoji: "🗣️", description: "Choose a random topic and make a 10-minute presentation to explain said topic to the other person. Pending: Mazes. 🧠" },
+            { title: "Deep Dive", emoji: "👀", description: "Getting to know each other even further through a question-based card game. All ratings approved, of course. 🃏" },
+            { title: "Early Birds", emoji: "🪱", description: "Early Bird gets the Worm. Have a morning coffee date for a change and admire each other's sleepy face. ☕️" },
+            { title: "The Jar", emoji: "🍶", description: "Ask our future selves questions, write them down, and put them away for us to find and reply to on another call. ❓" },
+            { title: "Speaking from Ignorance", emoji: "🎙️", description: "Each of us chooses a word or concept for the other that we know they are oblivious to, and then we try to explain what it means without looking it up anywhere. 📖" },
+            { title: "Tier Ranking", emoji: "🎖️", description: "Tier Ranking random things and seeing how much we agree to disagree during the process. Maybe we should start with banal things that we don't feel particularly strongly about. 💪" },
+            { title: "A New Us", emoji: "😘", description: "It is make-up night! We each put on eyeliner, eyeshadow, lipgloss, moisturiser, but most of all, we wear facemasks and blackhead removers so that we feel at our freshest. 💄" }
         ];
 
         const grid = document.getElementById('coupon-grid');
+
+        window.handleRedeem = (e, btn) => {
+            e.stopPropagation();
+            const label = btn.querySelector('.btn-text');
+            if (!btn.classList.contains('is-redeemed')) {
+                btn.classList.add('is-redeemed');
+                label.innerText = 'Redeemed';
+            } else {
+                btn.classList.remove('is-redeemed');
+                label.innerText = 'Redeem';
+            }
+        };
+
         coupons.forEach(coupon => {
             const card = document.createElement('div');
             card.className = 'coupon-card';
-            // Added the 'is-flipped' toggle directly to the inner div for Safari
             card.innerHTML = `
                 <div class="coupon-inner" onclick="this.classList.toggle('is-flipped')">
                     <div class="coupon-front">
-                        <span class="text-5xl mb-4">${coupon.emoji}</span>
-                        <h3 class="text-xl font-bold text-slate-800">${coupon.title}</h3>
-                        <p class="text-pink-500 mt-4 text-xs font-bold uppercase tracking-widest">Tap to Flip</p>
+                        <span class="text-6xl mb-4">${coupon.emoji}</span>
+                        <h3 class="text-2xl font-bold text-slate-800 text-center font-display">${coupon.title}</h3>
+                        <p class="text-pink-500 mt-6 text-xs font-bold uppercase tracking-widest">Tap to Flip</p>
                     </div>
                     <div class="coupon-back text-center">
                         <p class="text-slate-700 font-medium leading-relaxed">${coupon.description}</p>
-                        <div class="mt-4 text-pink-400 font-bold uppercase text-xs">Redeem</div>
+                        <button class="redeem-btn" onclick="handleRedeem(event, this)">
+                            <span class="btn-text">Redeem</span>
+                            <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </button>
                     </div>
                 </div>
             `;
