@@ -12,7 +12,7 @@
         .font-display { font-family: 'Cochin', 'Georgia', serif; }
         
         .text-gradient-gold {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            background: linear-gradient(to right, #8a642a, #a57c39, #634b22, #a57c39, #8a642a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -101,6 +101,7 @@
             transform: rotateY(180deg); 
             z-index: 1; 
             border: 2px dashed #fbcfe8;
+            overflow-y: auto;
         }
 
         .redeem-btn {
@@ -145,9 +146,9 @@
                 </h1>
 
                 <p class="text-base md:text-lg text-slate-700 leading-relaxed text-center">
-                    Sant Jordi remains the superior holiday, but this is the first time I get to call you my (not Saint) Valentine, so allow me to wake up craving cheese... and end up being painfully cheesy instead. 
+                    Sant Jordi remains the superior holiday, but this is the first time I get to call you my (not Saint) Valentine, so allow me to wake up craving cheese... and end up being painfully cheesy instead.
                     <br><br>
-                    This is a compilation of dates we can have on a call. The in-person dates will come, but I am sure we can come up with those together. 
+                    This is a compilation of dates we can have on a call. The in-person dates will come, but I am sure we can come up with those together.
                     <br><br>
                     <span class="text-pink-600 font-semibold">Happy Valentine's Day, ducky!</span>
                 </p>
@@ -166,14 +167,14 @@
         <p class="text-slate-500 font-display text-xl mb-16">Tap a coupon to reveal your treat! ✨</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="coupon-grid"></div>
 
-        <footer class="mt-24 mb-10">
+        <footer class="mt-24 mb-6">
             <p class="font-display text-lg text-slate-600 mb-2">
                 Dates Completed: <span id="redeem-count" class="font-bold text-pink-500">0</span> / <span id="total-count">0</span>
             </p>
             <p class="font-display text-2xl text-pink-400 italic">I love you Matt.</p>
         </footer>
 
-        <div class="mt-8 max-w-lg mx-auto px-4">
+        <div class="max-w-lg mx-auto px-4 pb-20">
             <div class="bg-sky-50/50 backdrop-blur-md border border-sky-100 rounded-2xl p-6 shadow-sm">
                 <h3 class="font-display text-xl text-slate-800 mb-1">Rate the Coupon Book</h3>
                 <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
@@ -257,7 +258,7 @@
         };
 
         const coupons = [
-            { title: "Movie Night In", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it will be in-sync this time! 🍿" },
+            { title: "Movie Night", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it will be in-sync this time! 🍿" },
             { title: "Cook Together", emoji: "👨‍🍳", description: "Choose the same recipe, buy the ingredients, and cook together over video call. Bonus points for actually eating together at the same time, as experience has proven it hard! 🍝" },
             { title: "Photo Album", emoji: "📸", description: "Create an album compiling our best pictures as a keepsake of when we are together! ✨" },
             { title: "Creative Writing", emoji: "📚", description: "Write a story based on a prompt found online. We each write for 2 minutes and then swap stories, making it a combination of both our ideas! 💭" },
@@ -286,7 +287,8 @@
             const label = btn.querySelector('.btn-text');
             const isRedeemed = btn.classList.toggle('is-redeemed');
             label.innerText = isRedeemed ? 'Redeemed' : 'Redeem';
-            countDisplay.innerText = parseInt(countDisplay.innerText) + (isRedeemed ? 1 : -1);
+            const currentRedeemed = parseInt(countDisplay.innerText);
+            countDisplay.innerText = isRedeemed ? currentRedeemed + 1 : Math.max(0, currentRedeemed - 1);
             if (isRedeemed) launchFireworks(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
         };
 
@@ -301,7 +303,7 @@
                         <p class="text-pink-500 mt-6 text-xs font-bold uppercase tracking-widest">Tap to Flip</p>
                     </div>
                     <div class="coupon-back text-center">
-                        <p class="text-slate-700 font-medium mb-6 leading-relaxed">${coupon.description}</p>
+                        <p class="text-slate-700 font-medium text-[16px] mb-6 leading-relaxed px-2">${coupon.description}</p>
                         <button class="redeem-btn" onclick="handleRedeem(event, this)">
                             <span class="btn-text">Redeem</span>
                             <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
