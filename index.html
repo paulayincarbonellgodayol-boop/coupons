@@ -29,18 +29,14 @@
             position: relative;
         }
 
-        /* Standardised SVG Heart Animation */
+        /* Animated Floating Hearts */
         .heart-particle {
             position: absolute;
+            color: rgba(236, 72, 153, 0.4);
             user-select: none;
             pointer-events: none;
             z-index: 5;
             animation: floatUp 10s linear infinite;
-        }
-
-        .heart-particle svg {
-            fill: #ec4899; /* pink-500 */
-            opacity: 0.4;
         }
 
         @keyframes floatUp {
@@ -173,36 +169,27 @@
     </section>
 
     <script>
-        // --- Heart Animation Logic using SVG for Consistency ---
+        // --- Heart Animation Logic ---
         function createHeart() {
             const hero = document.getElementById('hero-section');
-            const container = document.createElement('div');
-            container.classList.add('heart-particle');
-            
-            // SVG Path matches the header heart
-            container.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-            `;
-            
-            const size = Math.random() * 15 + 10;
-            container.style.width = size + "px";
-            container.style.left = Math.random() * 100 + "vw";
-            container.style.animationDuration = Math.random() * 5 + 7 + "s";
-            
-            hero.appendChild(container);
-            setTimeout(() => { container.remove(); }, 12000);
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+            hero.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 10000);
         }
-        setInterval(createHeart, 600);
+        setInterval(createHeart, 400);
 
         // --- Coupon Data ---
         const coupons = [
-            { title: "Movie Night In", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it is in-sync! 🍿" },
+            { title: "Movie Night In", emoji: "🎬", description: "Nothing better than picking a movie or TV series, pressing play at the same time, and FaceTiming (veto power reserved). Hopefully it will be in-sync this time! 🍿" },
             { title: "Cook Together", emoji: "👨‍🍳", description: "Choose the same recipe, buy the ingredients, and cook together over video call. Bonus points for actually eating together at the same time, as experience has proven it hard! 🍝" },
             { title: "Photo Album", emoji: "📸", description: "Create an album compiling our best pictures as a keepsake of when we are together! ✨" },
             { title: "Creative Writing", emoji: "📚", description: "Write a story based on a prompt found online. We each write for 2 minutes and then swap stories, making it a combination of both our ideas! 💭" },
-            { title: "Game Night", emoji: "🎮", description: "Pick a multiplayer game and play together. I think an escape room could be fun, but am very open to finding alternatives! 🔎" },
+            { title: "Game Night", emoji: "🎮", description: "We pick a multiplayer game and play together. I think an escape room could be fun, but am very open to finding alternatives and look forward to learning about the war strategy game! 🔎" },
             { title: "Music Night", emoji: "🎵", description: "Go through our playlist together and add new ones to listen to when we are together. Bonus points for random picks like Dr Heckyll and Mr Jive! 💗" },
             { title: "Virtual Museum", emoji: "🏛️", description: "Visit a virtual museum together. I am positive the Louvre and the British Museum, among others, offer this option! We are cultural ducks. 🖼️" },
             { title: "Niche Pictionary", emoji: "🎨", description: "Revisit our favourite moments together while testing our lack of artistic abilities. Pending: find a medium that does not randomly rearrange our masterpieces. 🌀" },
@@ -213,7 +200,8 @@
             { title: "The Jar", emoji: "🍶", description: "Ask our future selves questions, write them down, and put them away for us to find and reply to on another call. ❓" },
             { title: "Speaking from Ignorance", emoji: "🎙️", description: "Each of us chooses a word or concept for the other that we know they are oblivious to, and then we try to explain what it means without looking it up anywhere. 📖" },
             { title: "Tier Ranking", emoji: "🎖️", description: "Tier Ranking random things and seeing how much we agree to disagree during the process. Maybe we should start with banal things that we don't feel particularly strongly about. 💪" },
-            { title: "A New Us", emoji: "😘", description: "It is make-up night! We each put on eyeliner, eyeshadow, lipgloss, moisturiser, but most of all, we wear facemasks and blackhead removers so that we feel at our prettiest and freshest. 💄" }
+            { title: "A New Us", emoji: "😘", description: "It is make-up night! We each put on eyeliner, eyeshadow, lipgloss, moisturiser, but most of all, we wear facemasks and blackhead removers so that we feel at our freshest. 💄" },
+	    { title: "Guided Tours", emoji: "🎥", description: "We each plan the itinerary for a possible future travel. Local attractions and food options included. Recommended: starting with a road trip around Catalonia and the Scottish Highlands respectively. 🎒" },
         ];
 
         const grid = document.getElementById('coupon-grid');
