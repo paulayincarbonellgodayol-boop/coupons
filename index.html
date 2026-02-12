@@ -180,11 +180,21 @@
                 <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
                 
                 <div class="flex justify-center gap-4 mb-4" id="page-duck-rating">
-                    <button onclick="ratePage(1, event)" class="duck-btn text-3xl filter grayscale opacity-40 transition-all duration-300 hover:scale-125">🦆</button>
-                    <button onclick="ratePage(2, event)" class="duck-btn text-3xl filter grayscale opacity-40 transition-all duration-300 hover:scale-125">🦆</button>
-                    <button onclick="ratePage(3, event)" class="duck-btn text-3xl filter grayscale opacity-40 transition-all duration-300 hover:scale-125">🦆</button>
-                    <button onclick="ratePage(4, event)" class="duck-btn text-3xl filter grayscale opacity-40 transition-all duration-300 hover:scale-125">🦆</button>
-                    <button onclick="ratePage(5, event)" class="duck-btn text-3xl filter grayscale opacity-40 transition-all duration-300 hover:scale-125">🦆</button>
+                    <button onclick="ratePage(1, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 1" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(2, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 2" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(3, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 3" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(4, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 4" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(5, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 5" class="w-full h-full object-contain">
+                    </button>
                 </div>
 
                 <textarea id="page-comment" class="w-full bg-white/80 border border-sky-100 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 transition-all resize-none font-display" placeholder="Leave a comment..." rows="2"></textarea>
@@ -245,8 +255,11 @@
         window.ratePage = (rating, event) => {
             selectedRating = rating;
             document.querySelectorAll('.duck-btn').forEach((duck, i) => {
-                duck.classList.toggle('grayscale', i >= rating);
-                duck.classList.toggle('opacity-40', i >= rating);
+                if (i < rating) {
+                    duck.classList.remove('grayscale', 'opacity-40');
+                } else {
+                    duck.classList.add('grayscale', 'opacity-40');
+                }
             });
             launchFireworks(event.clientX, event.clientY);
         };
@@ -274,7 +287,7 @@
             { title: "Speaking from Ignorance", emoji: "🎙️", description: "Each of us chooses a word or concept for the other that we know they are oblivious to, and then we try to explain what it means without looking it up anywhere. 📖" },
             { title: "Tier Ranking", emoji: "🎖️", description: "Tier Ranking random things and seeing how much we agree to disagree during the process. Maybe we should start with banal things that we don't feel particularly strongly about. 💪" },
             { title: "A New Us", emoji: "😘", description: "It is make-up night! We each put on eyeliner, eyeshadow, lipgloss, moisturiser, but most of all, we wear facemasks and blackhead removers so that we feel at our prettiest and freshest. 💄" },
-            { title: "Guided Tours", emoji: "🗺️", description: "We each plan the itinerary for a possible future travel. Local attractions and food options included. Recommended: starting with a road trip around Catalonia and the Scottish Highlands respectively. 🎒" },
+            { title: "Guided Tours", emoji: "🗺️", description: "We each plan the itinerary for a future travel. Local attractions and food options included. Recommended: starting with a road trip around Catalonia and the Scottish Highlands respectively. 🎒" },
             { title: "Top Secret", emoji: "🔐", description: "This date requires having a knack for exploration and keeping things between us. 💌" }
         ];
 
