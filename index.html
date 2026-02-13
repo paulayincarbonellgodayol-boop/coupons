@@ -173,36 +173,37 @@
             <p class="font-display text-2xl text-pink-400 italic">I love you Matt.</p>
         </footer>
 
-        <div class="max-w-lg mx-auto px-4 pb-20">
-            <div class="bg-sky-50/50 backdrop-blur-md border border-sky-100 rounded-2xl p-6 shadow-sm">
-                <h3 class="font-display text-xl text-slate-800 mb-1">Rate the Coupon Book</h3>
-                <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
-                
-                <div class="flex justify-center gap-4 mb-4" id="page-duck-rating">
-                    <button onclick="ratePage(1, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                        <img src="mallard.jpg" alt="Duck 1" class="w-full h-full object-contain">
-                    </button>
-                    <button onclick="ratePage(2, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                        <img src="mallard.jpg" alt="Duck 2" class="w-full h-full object-contain">
-                    </button>
-                    <button onclick="ratePage(3, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                        <img src="mallard.jpg" alt="Duck 3" class="w-full h-full object-contain">
-                    </button>
-                    <button onclick="ratePage(4, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                        <img src="mallard.jpg" alt="Duck 4" class="w-full h-full object-contain">
-                    </button>
-                    <button onclick="ratePage(5, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                        <img src="mallard.jpg" alt="Duck 5" class="w-full h-full object-contain">
-                    </button>
-                </div>
-
-                <textarea id="page-comment" class="w-full bg-white/80 border border-sky-100 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 transition-all resize-none font-display" placeholder="Leave a comment..." rows="2"></textarea>
-                
-                <button onclick="sendPageReview()" class="mt-4 w-full py-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-full shadow-md transition-all active:scale-95 text-[10px] uppercase tracking-widest">
-                    Send Review 💌
-                </button>
-            </div>
+        
+       <div class="max-w-lg mx-auto px-4 pb-20">
+    <div class="bg-pink-50/50 backdrop-blur-md border border-pink-100 rounded-2xl p-6 shadow-sm">
+        <h3 class="font-display text-xl text-slate-800 mb-1">Rate the Coupon Book</h3>
+        <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
+        
+        <div class="flex justify-center gap-4 mb-4" id="page-duck-rating">
+            <button onclick="ratePage(1, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                <img src="mallard.jpg" alt="Duck 1" class="w-full h-full object-contain">
+            </button>
+            <button onclick="ratePage(2, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                <img src="mallard.jpg" alt="Duck 2" class="w-full h-full object-contain">
+            </button>
+            <button onclick="ratePage(3, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                <img src="mallard.jpg" alt="Duck 3" class="w-full h-full object-contain">
+            </button>
+            <button onclick="ratePage(4, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                <img src="mallard.jpg" alt="Duck 4" class="w-full h-full object-contain">
+            </button>
+            <button onclick="ratePage(5, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                <img src="mallard.jpg" alt="Duck 5" class="w-full h-full object-contain">
+            </button>
         </div>
+
+        <textarea id="page-comment" class="w-full bg-white/80 border border-pink-100 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all resize-none font-display" placeholder="Leave a comment..." rows="2"></textarea>
+        
+        <button onclick="sendPageReview()" class="mt-4 w-full py-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full shadow-md transition-all active:scale-95 text-[10px] uppercase tracking-widest">
+            Send Review
+        </button>
+    </div>
+</div>
     </section>
 
     <script>
