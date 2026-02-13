@@ -226,8 +226,8 @@ let placedDucks = [];
 
 function handleQuacks() {
     quackCount++;
-    // We spawn 25 ducks per click, checking for overlaps
-    spawnDucks(25); 
+    // We spawn 20 ducks per click, checking for overlaps
+    spawnDucks(20); 
 
     if (quackCount >= QUACKS_REQUIRED) {
         const btn = document.getElementById('quack-button');
