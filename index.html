@@ -29,6 +29,55 @@
             position: relative;
         }
 
+        /* --- Slider Styles --- */
+        .slider-container {
+            width: 280px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 999px;
+            position: relative;
+            padding: 4px;
+            border: 2px solid #fbcfe8;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slider-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 52px;
+            font-size: 14px;
+            color: #db2777;
+            font-weight: 600;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .slider-handle {
+            width: 52px;
+            height: 52px;
+            background: #ec4899;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            touch-action: none;
+        }
+
+        #quack-game-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* --- Existing Particle/Coupon Styles --- */
         .heart-particle {
             position: absolute;
             user-select: none;
@@ -129,7 +178,21 @@
 <body class="bg-slate-50">
 
 <div id="cover-page" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#fff1f2] transition-opacity duration-[2000ms] overflow-hidden">
-    <div class="text-center px-6 relative z-[150]">
+    <div id="slider-gate" class="text-center px-6 relative z-[160]">
+        <div class="mb-8">
+            <img src="heart.jpg" alt="Start" class="w-24 h-24 mx-auto">
+        </div>
+        <h2 class="font-display text-2xl text-slate-800 mb-6 italic">Hello Ducky!</h2>
+        
+        <div class="slider-container" id="sliderContainer">
+            <div class="slider-text">Slide to Unlock</div>
+            <div class="slider-handle" id="sliderHandle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="quack-game-content" class="text-center px-6 relative z-[150]">
         <div class="mb-8">
             <img src="mallard.jpg" alt="Duck Logo" class="w-24 h-24 mx-auto rounded-full">
         </div>
@@ -139,8 +202,7 @@
     </div>
 </div>
 
-
-      <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-pink-50" id="hero-section">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-pink-50" id="hero-section">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80" 
                  class="w-full h-full object-cover opacity-30" alt="Background">
@@ -149,9 +211,9 @@
 
         <div class="relative z-10 text-center px-6 max-w-2xl">
             <div class="text-overlay-box">
-<div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white mb-6 overflow-hidden">
-    <img src="valentine.jpg" alt="Profile" class="w-full h-full object-cover">
-</div>
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white mb-6 overflow-hidden">
+                    <img src="valentine.jpg" alt="Profile" class="w-full h-full object-cover">
+                </div>
                 <h1 class="font-display text-4xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
                     Our <span class="text-gradient-gold block">Date Night</span> Coupon Book
                 </h1>
@@ -185,130 +247,174 @@
             <p class="font-display text-2xl text-pink-400 italic">I love you Matt.</p>
         </footer>
 
-       <div class="max-w-lg mx-auto px-4 pb-20">
-    <div class="bg-pink-50/50 backdrop-blur-md border border-pink-100 rounded-2xl p-6 shadow-sm">
-        <h3 class="font-display text-xl text-slate-800 mb-1">Rate the Coupon Book</h3>
-        <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
-        
-        <div class="flex justify-center gap-4 mb-4" id="page-duck-rating">
-            <button onclick="ratePage(1, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                <img src="mallard.jpg" alt="Duck 1" class="w-full h-full object-contain">
-            </button>
-            <button onclick="ratePage(2, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                <img src="mallard.jpg" alt="Duck 2" class="w-full h-full object-contain">
-            </button>
-            <button onclick="ratePage(3, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                <img src="mallard.jpg" alt="Duck 3" class="w-full h-full object-contain">
-            </button>
-            <button onclick="ratePage(4, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                <img src="mallard.jpg" alt="Duck 4" class="w-full h-full object-contain">
-            </button>
-            <button onclick="ratePage(5, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
-                <img src="mallard.jpg" alt="Duck 5" class="w-full h-full object-contain">
-            </button>
-        </div>
+        <div class="max-w-lg mx-auto px-4 pb-20">
+            <div class="bg-pink-50/50 backdrop-blur-md border border-pink-100 rounded-2xl p-6 shadow-sm">
+                <h3 class="font-display text-xl text-slate-800 mb-1">Rate the Coupon Book</h3>
+                <p class="text-slate-500 text-xs mb-4 font-display italic">Disclaimer Alert: mockery will not be appreciated.</p>
+                
+                <div class="flex justify-center gap-4 mb-4" id="page-duck-rating">
+                    <button onclick="ratePage(1, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 1" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(2, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 2" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(3, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 3" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(4, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 4" class="w-full h-full object-contain">
+                    </button>
+                    <button onclick="ratePage(5, event)" class="duck-btn w-12 h-12 filter grayscale opacity-40 transition-all duration-300 hover:scale-110">
+                        <img src="mallard.jpg" alt="Duck 5" class="w-full h-full object-contain">
+                    </button>
+                </div>
 
-        <textarea id="page-comment" class="w-full bg-white/80 border border-pink-100 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all resize-none font-display" placeholder="Leave a comment..." rows="2"></textarea>
-        
-        <button onclick="sendPageReview()" class="mt-4 w-full py-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full shadow-md transition-all active:scale-95 text-[10px] uppercase tracking-widest">
-            Send Review
-        </button>
-    </div>
-</div>
+                <textarea id="page-comment" class="w-full bg-white/80 border border-pink-100 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all resize-none font-display" placeholder="Leave a comment..." rows="2"></textarea>
+                
+                <button onclick="sendPageReview()" class="mt-4 w-full py-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full shadow-md transition-all active:scale-95 text-[10px] uppercase tracking-widest">
+                    Send Review
+                </button>
+            </div>
+        </div>
     </section>
 
     <script>
-
-let quackCount = 0;
-const QUACKS_REQUIRED = 10;
-// Array to keep track of where ducks are placed
-let placedDucks = []; 
-
-function handleQuacks() {
-    quackCount++;
-    // We spawn 15 ducks per click, checking for overlaps
-    spawnDucks(15); 
-
-    if (quackCount >= QUACKS_REQUIRED) {
-        const btn = document.getElementById('quack-button');
-        btn.innerText = "Let's Go!";
-        btn.onclick = null;
-        dismissCover();
-    }
-}
-
-function spawnDucks(amount) {
-    const cover = document.getElementById('cover-page');
-    const padding = 10; // Minimum pixels between ducks
-
-    for (let i = 0; i < amount; i++) {
-        const size = Math.floor(Math.random() * 60) + 40;
-        let x, y, overlapping;
-        let attempts = 0;
-        const maxAttempts = 50; // Safety cap to prevent infinite loops
-
-        // Try to find a non-overlapping position
-        do {
-            overlapping = false;
-            x = Math.random() * (window.innerWidth - size);
-            y = Math.random() * (window.innerHeight - size);
-            attempts++;
-
-            for (let existing of placedDucks) {
-                // Calculate distance between centers of the circular ducks
-                const dx = (x + size / 2) - (existing.x + existing.size / 2);
-                const dy = (y + size / 2) - (existing.y + existing.size / 2);
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                // If distance is less than the sum of radii + padding, they overlap
-                if (distance < (size / 2 + existing.size / 2 + padding)) {
-                    overlapping = true;
-                    break;
-                }
-            }
-        } while (overlapping && attempts < maxAttempts);
-
-        // Save the coordinates and size for future checks
-        placedDucks.push({ x, y, size });
-
-        // Create the element
-        const duck = document.createElement('img');
-        duck.src = 'mallard.jpg';
-        duck.className = 'absolute rounded-full';
-        duck.style.width = size + 'px';
-        duck.style.height = size + 'px';
-        duck.style.left = x + 'px';
-        duck.style.top = y + 'px';
-        duck.style.transform = `rotate(${Math.random() * 360}deg)`;
-        duck.style.zIndex = "110";
+        /* --- Slider Logic --- */
+        const sliderContainer = document.getElementById('sliderContainer');
+        const sliderHandle = document.getElementById('sliderHandle');
+        const sliderGate = document.getElementById('slider-gate');
+        const quackContent = document.getElementById('quack-game-content');
         
-        cover.appendChild(duck);
-    }
-}
+        let isDragging = false;
+        let startX = 0;
+        const maxSlide = sliderContainer.clientWidth - sliderHandle.clientWidth - 8;
 
-function dismissCover() {
-    const cover = document.getElementById('cover-page');
-    if (cover) {
-        cover.style.opacity = '0';
-        setTimeout(() => {
-            cover.style.display = 'none';
-        }, 2000); // The slow 2-second transition
-    }
-}
+        function startDrag(e) {
+            isDragging = true;
+            startX = (e.type === 'touchstart') ? e.touches[0].clientX : e.clientX;
+            sliderHandle.style.transition = 'none';
+        }
 
-// Updated Heart Function to be on top of the opaque pink
-function createHeart() {
-    const container = document.createElement('div');
-    container.classList.add('heart-particle');
-    container.style.zIndex = "120"; // Above ducks, below button
-    container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-    container.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(container);
-    setTimeout(() => container.remove(), 12000);
-}
-setInterval(createHeart, 600);
+        function onDrag(e) {
+            if (!isDragging) return;
+            const currentX = (e.type === 'touchmove') ? e.touches[0].clientX : e.clientX;
+            let deltaX = currentX - startX;
+            deltaX = Math.max(0, Math.min(deltaX, maxSlide));
+            sliderHandle.style.left = deltaX + 'px';
+            
+            if (deltaX >= maxSlide * 0.95) {
+                unlockGate();
+            }
+        }
 
+        function stopDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            if (parseInt(sliderHandle.style.left) < maxSlide * 0.95) {
+                sliderHandle.style.transition = 'left 0.3s ease';
+                sliderHandle.style.left = '4px';
+            }
+        }
 
+        function unlockGate() {
+            isDragging = false;
+            sliderGate.style.display = 'none';
+            quackContent.style.display = 'block';
+            setTimeout(() => quackContent.style.opacity = '1', 10);
+        }
+
+        sliderHandle.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', onDrag);
+        window.addEventListener('mouseup', stopDrag);
+        sliderHandle.addEventListener('touchstart', startDrag);
+        window.addEventListener('touchmove', onDrag, { passive: false });
+        window.addEventListener('touchend', stopDrag);
+
+        /* --- Quack Game Logic --- */
+        let quackCount = 0;
+        const QUACKS_REQUIRED = 10;
+        let placedDucks = []; 
+
+        function handleQuacks() {
+            quackCount++;
+            spawnDucks(15); 
+
+            if (quackCount >= QUACKS_REQUIRED) {
+                const btn = document.getElementById('quack-button');
+                btn.innerText = "Let's go!";
+                btn.onclick = null;
+                dismissCover();
+            }
+        }
+
+        function spawnDucks(amount) {
+            const cover = document.getElementById('cover-page');
+            const padding = 10;
+
+            for (let i = 0; i < amount; i++) {
+                const size = Math.floor(Math.random() * 60) + 40;
+                let x, y, overlapping;
+                let attempts = 0;
+                const maxAttempts = 50;
+
+                do {
+                    overlapping = false;
+                    x = Math.random() * (window.innerWidth - size);
+                    y = Math.random() * (window.innerHeight - size);
+                    attempts++;
+
+                    for (let existing of placedDucks) {
+                        const dx = (x + size / 2) - (existing.x + existing.size / 2);
+                        const dy = (y + size / 2) - (existing.y + existing.size / 2);
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < (size / 2 + existing.size / 2 + padding)) {
+                            overlapping = true;
+                            break;
+                        }
+                    }
+                } while (overlapping && attempts < maxAttempts);
+
+                placedDucks.push({ x, y, size });
+
+                const duck = document.createElement('img');
+                duck.src = 'mallard.jpg';
+                duck.className = 'absolute rounded-full transition-all duration-500';
+                duck.style.width = size + 'px';
+                duck.style.height = size + 'px';
+                duck.style.left = x + 'px';
+                duck.style.top = y + 'px';
+                duck.style.transform = `rotate(${Math.random() * 360}deg)`;
+                duck.style.zIndex = "110";
+                
+                cover.appendChild(duck);
+            }
+        }
+
+        function dismissCover() {
+            const cover = document.getElementById('cover-page');
+            if (cover) {
+                cover.style.opacity = '0';
+                setTimeout(() => {
+                    cover.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        /* --- Animated Hearts Logic --- */
+        function createHeart() {
+            const hero = document.getElementById('hero-section');
+            if (!hero) return;
+            const container = document.createElement('div');
+            container.classList.add('heart-particle');
+            container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+            container.style.left = Math.random() * 100 + "vw";
+            hero.appendChild(container);
+            setTimeout(() => container.remove(), 12000);
+        }
+        setInterval(createHeart, 600);
+
+        /* --- Global Logic (Rating, Fireworks, Glide) --- */
         const YOUR_EMAIL = "paulayincarbonellgodayol@gmail.com";
         let selectedRating = 0;
 
@@ -321,24 +427,9 @@ setInterval(createHeart, 600);
                 const elementRect = target.getBoundingClientRect().top;
                 const elementPosition = elementRect - bodyRect;
                 const offsetPosition = elementPosition - offset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
             }
         }
-
-        function createHeart() {
-            const hero = document.getElementById('hero-section');
-            const container = document.createElement('div');
-            container.classList.add('heart-particle');
-            container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-            container.style.left = Math.random() * 100 + "vw";
-            hero.appendChild(container);
-            setTimeout(() => container.remove(), 12000);
-        }
-        setInterval(createHeart, 600);
 
         function launchFireworks(x, y) {
             const colors = ['#ec4899', '#bf953f', '#0ea5e9', '#fce7f3'];
